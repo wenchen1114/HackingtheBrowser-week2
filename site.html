@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>My first Bookmarklet</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="box">
+        <a href="javascript:(function() { function injectJquery(callback) {
+            if (window.jQuery) {
+              return callback(window.jQuery);
+            }
+          
+            let script = document.createElement('script');
+            script.setAttribute('src', '//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js');
+          
+            script.onload = () => callback(window.jQuery);
+          
+            script.onerror = e => alert('The script failed to load: ' + e);
+          
+            document.head.appendChild(script);
+          }
+          
+          injectJquery(function ($) {
+            function getTextNodes() {
+              var nodes = [];
+              var treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+                acceptNode: function (node) {
+                  return NodeFilter.FILTER_ACCEPT;
+                }
+              }, false);
+          
+              while (treeWalker.nextNode()) {
+                var parentNode = treeWalker.currentNode.parentNode;
+                var parentTagName = parentNode.tagName;
+          
+                if (parentTagName !== &quot;SCRIPT&quot; &amp;&amp; parentTagName !== &quot;STYLE&quot; &amp;&amp; parentTagName !== &quot;TITLE&quot;) {
+                  nodes.push(treeWalker.currentNode);
+                }
+              }
+          
+              return nodes;
+            }
+          
+            var textNodes = getTextNodes();
+            textNodes.forEach(function (textNode) {
+              var text = textNode.textContent;
+              var obj = {
+                A: '2',
+                B: '2',
+                C: '2',
+                D: '3',
+                E: '3',
+                F: '3',
+                G: '4',
+                H: '4',
+                I: '4',
+                J: '5',
+                K: '5',
+                L: '5',
+                M: '6',
+                N: '6',
+                O: '6',
+                P: '7',
+                Q: '7',
+                R: '7',
+                S: '7',
+                T: '8',
+                U: '8',
+                V: '8',
+                W: '9',
+                X: '9',
+                Y: '9',
+                Z: '9',
+                a: '2',
+                b: '2',
+                c: '2',
+                d: '3',
+                e: '3',
+                f: '3',
+                g: '4',
+                h: '4',
+                i: '4',
+                j: '5',
+                k: '5',
+                l: '5',
+                m: '6',
+                n: '6',
+                o: '6',
+                p: '7',
+                q: '7',
+                r: '7',
+                s: '7',
+                t: '8',
+                u: '8',
+                v: '8',
+                w: '9',
+                x: '9',
+                y: '9',
+                z: '9'
+              };
+              var re = new RegExp(Object.keys(obj).join(&quot;|&quot;), &quot;gi&quot;);
+              var modifiedText = text.replace(re, function (matched) {
+                return obj[matched];
+              });
+              textNode.textContent = modifiedText;
+            });
+          }); })()" id="bookmarklet">encoder</a>
+        </div>
+    </body>
+</html>
